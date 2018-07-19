@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zzh.foldtext.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="方法一：textView设置点击事件" />
+
+        <FrameLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9c9c9c"
+            android:padding="20dp">
+
+            <com.example.zzh.foldtext.SpannableFoldTextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:textColor="#000"
+                app:showMaxLine="4"
+                app:showTipAfterExpand="true"
+                app:tipClickable="true"
+                app:tipColor="@color/colorPrimary"
+                app:tipGravity="0" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="方法一：父View设置点击事件" />
+
+        <FrameLayout
+            android:id="@+id/parent1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9c9c9c"
+            android:padding="20dp">
+
+            <com.example.zzh.foldtext.SpannableFoldTextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:textColor="#000"
+                app:showMaxLine="4"
+                app:showTipAfterExpand="true"
+                app:tipClickable="true"
+                app:tipColor="@color/colorPrimary"
+                app:tipGravity="0" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="方法二：textView设置点击事件" />
+
+        <FrameLayout
+            android:id="@+id/parent2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9c9c9c"
+            android:padding="20dp">
+
+            <com.example.zzh.foldtext.FoldTextView
+                android:id="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:textColor="#000"
+                app:showMaxLine="4"
+                app:showTipAfterExpand="true"
+                app:tipClickable="true"
+                app:tipColor="@color/colorPrimary"
+                app:tipGravity="0" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="方法二：父View设置点击事件" />
+
+        <FrameLayout
+            android:id="@+id/parent3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#9c9c9c"
+            android:padding="20dp">
+
+            <com.example.zzh.foldtext.FoldTextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:textColor="#000"
+                app:showMaxLine="4"
+                app:showTipAfterExpand="true"
+                app:tipClickable="true"
+                app:tipColor="@color/colorPrimary"
+                app:tipGravity="0" />
+        </FrameLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
