@@ -60,7 +60,7 @@
                 app:showTipAfterExpand="true"
                 app:tipClickable="true"
                 app:tipColor="@color/colorPrimary"
-                app:tipGravity="0" />
+                app:tipGravity="1" />
         </FrameLayout>
 
         <TextView
@@ -113,7 +113,7 @@
                 app:showTipAfterExpand="true"
                 app:tipClickable="true"
                 app:tipColor="@color/colorPrimary"
-                app:tipGravity="0" />
+                app:tipGravity="1" />
         </FrameLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

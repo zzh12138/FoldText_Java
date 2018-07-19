@@ -28,7 +28,7 @@ public class FoldTextView extends AppCompatTextView {
     private static final String ELLIPSIZE_END = "...";
     private static final int MAX_LINE = 4;
     private static final String EXPAND_TIP_TEXT = "  收起全文";
-    private static final String FOLD_TIP_TEXT = "  全文";
+    private static final String FOLD_TIP_TEXT = "全文";
     private static final int TIP_COLOR = 0xFFFFFFFF;
     /**
      * 全文显示的位置
@@ -132,6 +132,9 @@ public class FoldTextView extends AppCompatTextView {
         if (TextUtils.isEmpty(mFoldText)) {
             mFoldText = FOLD_TIP_TEXT;
         }
+        if (mTipGravity == END) {
+            mFoldText = "  ".concat(mFoldText);
+        }
         mPaint = new Paint();
         mPaint.setTextSize(getTextSize());
         mPaint.setColor(mTipColor);
@@ -152,7 +155,7 @@ public class FoldTextView extends AppCompatTextView {
             int mLineCount = getLineCount();
             Layout layout = getLayout();
             minX = getPaddingLeft() + layout.getPrimaryHorizontal(spannable.toString().lastIndexOf(mExpandText.charAt(0)) - 1);
-            maxX = getPaddingLeft() + layout.getSecondaryHorizontal(spannable.toString().lastIndexOf(mExpandText.charAt(mExpandText.length()-1)) + 1);
+            maxX = getPaddingLeft() + layout.getSecondaryHorizontal(spannable.toString().lastIndexOf(mExpandText.charAt(mExpandText.length() - 1)) + 1);
             Rect bound = new Rect();
             if (mLineCount > originalLineCount) {
                 //不在同一行
