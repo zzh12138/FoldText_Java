@@ -111,6 +111,7 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
             mFoldText = arr.getString(R.styleable.FoldTextView_foldText);
             mExpandText = arr.getString(R.styleable.FoldTextView_expandText);
             isShowTipAfterExpand = arr.getBoolean(R.styleable.FoldTextView_showTipAfterExpand, false);
+            isParentClick=arr.getBoolean(R.styleable.FoldTextView_isSetParentClick,false);
             arr.recycle();
         }
         if (TextUtils.isEmpty(mExpandText)) {

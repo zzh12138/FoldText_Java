@@ -8,5 +8,6 @@
         <attr name="foldText" format="string" />
         <attr name="expandText" format="string" />
         <attr name="showTipAfterExpand" format="boolean" />
+        <attr name="isSetParentClick" format="boolean"/>
     </declare-styleable>
 </resources>
