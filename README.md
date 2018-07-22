@@ -27,7 +27,7 @@ Step 1
 * tipGravity 提示文字位置 0-最后一行末尾，1-另起一行
 * isSetParentClick 是否为父View设置了点击事件
 * foldText 折叠时的提示文字
-* expandText 展开时的提示问题
+* expandText 展开时的提示文字
 
 Step 2
 
@@ -53,7 +53,7 @@ Step 1
 * tipColor 提示文字颜色
 * tipGravity 提示文字位置 0-最后一行末尾，1-另起一行
 * foldText 折叠时的提示文字
-* expandText 展开时的提示问题
+* expandText 展开时的提示文字
 
 Step 2
 
