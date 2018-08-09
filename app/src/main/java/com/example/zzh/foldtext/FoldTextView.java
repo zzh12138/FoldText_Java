@@ -149,7 +149,7 @@ public class FoldTextView extends AppCompatTextView {
             SpannableStringBuilder spannable = new SpannableStringBuilder(mOriginalText);
             if (isShowTipAfterExpand) {
                 spannable.append(mExpandText);
-                spannable.setSpan(new ForegroundColorSpan(mTipColor), spannable.length() - 5, spannable.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannable.setSpan(new ForegroundColorSpan(mTipColor), spannable.length() - mExpandText.length(), spannable.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
             super.setText(spannable, type);
             int mLineCount = getLineCount();
