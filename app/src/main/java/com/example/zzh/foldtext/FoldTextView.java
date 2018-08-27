@@ -96,6 +96,7 @@ public class FoldTextView extends AppCompatTextView {
      * 是否超过最大行数
      */
     private boolean isOverMaxLine;
+    private onTipClickListener onTipClickListener;
 
 
     public FoldTextView(Context context) {
@@ -142,6 +143,7 @@ public class FoldTextView extends AppCompatTextView {
 
     @Override
     public void setText(final CharSequence text, final BufferType type) {
+        mOriginalText = text;
         if (TextUtils.isEmpty(text) || mShowMaxLine == 0) {
             super.setText(text, type);
         } else if (isExpand) {
@@ -187,7 +189,6 @@ public class FoldTextView extends AppCompatTextView {
     }
 
     private void formatText(CharSequence text, final BufferType type) {
-        mOriginalText = text;
         Layout layout = getLayout();
         if (layout == null || !layout.getText().equals(mOriginalText)) {
             super.setText(mOriginalText, type);
@@ -309,6 +310,9 @@ public class FoldTextView extends AppCompatTextView {
                     if (delTime < ViewConfiguration.getTapTimeout() && isInRange(event.getX(), event.getY())) {
                         isExpand = !isExpand;
                         setText(mOriginalText);
+                        if (onTipClickListener != null) {
+                            onTipClickListener.onTipClick(isExpand);
+                        }
                         return true;
                     }
                     break;
@@ -328,4 +332,18 @@ public class FoldTextView extends AppCompatTextView {
         }
     }
 
+    public FoldTextView setExpand(boolean expand) {
+        isExpand = expand;
+        return this;
+    }
+
+
+    public FoldTextView setOnTipClickListener(FoldTextView.onTipClickListener onTipClickListener) {
+        this.onTipClickListener = onTipClickListener;
+        return this;
+    }
+
+    public interface onTipClickListener {
+        void onTipClick(boolean flag);
+    }
 }
