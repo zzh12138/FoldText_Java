@@ -227,6 +227,8 @@ public class FoldTextView extends AppCompatTextView {
                 span.append("\n");
             }
             super.setText(span, type);
+        } else {
+            isOverMaxLine = false;
         }
     }
 
