@@ -2,6 +2,7 @@ package com.example.zzh.foldtext;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
@@ -111,7 +112,7 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
             mFoldText = arr.getString(R.styleable.FoldTextView_foldText);
             mExpandText = arr.getString(R.styleable.FoldTextView_expandText);
             isShowTipAfterExpand = arr.getBoolean(R.styleable.FoldTextView_showTipAfterExpand, false);
-            isParentClick=arr.getBoolean(R.styleable.FoldTextView_isSetParentClick,false);
+            isParentClick = arr.getBoolean(R.styleable.FoldTextView_isSetParentClick, false);
             arr.recycle();
         }
         if (TextUtils.isEmpty(mExpandText)) {
@@ -214,8 +215,15 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
             StringBuilder builder = new StringBuilder(ELLIPSIZE_END);
             if (mTipGravity == END) {
                 builder.append("  ").append(mFoldText);
+                end -= paint.breakText(mOriginalText, start, end, false, paint.measureText(builder.toString()), null) + 1;
+                float x = getWidth() - getPaddingLeft() - getPaddingRight() - getTextWidth(ELLIPSIZE_END.concat(mFoldText));
+                while (layout.getPrimaryHorizontal(end - 1) + getTextWidth(mOriginalText.subSequence(end - 1, end).toString()) < x) {
+                    end++;
+                }
+                end -= 2;
+            } else {
+                end -= paint.breakText(mOriginalText, start, end, false, paint.measureText(builder.toString()), null) + 1;
             }
-            end -= paint.breakText(mOriginalText, start, end, false, paint.measureText(builder.toString()), null) + 1;
             CharSequence ellipsize = mOriginalText.subSequence(0, end);
             span.append(ellipsize);
             span.append(ELLIPSIZE_END);
@@ -293,5 +301,10 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
     public void setOnClickListener(@Nullable OnClickListener l) {
         listener = l;
         super.setOnClickListener(this);
+    }
+
+    private float getTextWidth(String text) {
+        Paint paint = getPaint();
+        return paint.measureText(text);
     }
 }
