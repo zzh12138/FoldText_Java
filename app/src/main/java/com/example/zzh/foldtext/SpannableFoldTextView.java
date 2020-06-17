@@ -133,15 +133,16 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
             SpannableStringBuilder spannable = new SpannableStringBuilder(mOriginalText);
             addTip(spannable, type);
         } else {
+            mOriginalText = text;
             if (getWidth() == 0){
                 post(new Runnable(){
                     @Override
                     public void run() {
-                        formatText(text, type);
+                        formatText(type);
                     }
                 });
             }else{
-                formatText(text, type);
+                formatText(type);
             }
         }
     }
@@ -184,8 +185,7 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
         super.setText(span, type);
     }
 
-    private void formatText(CharSequence text, final BufferType type) {
-        mOriginalText = text;
+    private void formatText(final BufferType type) {
         super.setText(mOriginalText, type);
         translateText(getLayout(), type);
     }
