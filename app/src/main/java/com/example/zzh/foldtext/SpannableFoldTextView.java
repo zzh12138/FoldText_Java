@@ -84,7 +84,7 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
     private boolean isParentClick;
 
     private OnClickListener listener;
-
+    private onTipClickListener onTipClickListener;
     public SpannableFoldTextView(Context context) {
         this(context, null);
     }
@@ -128,22 +128,21 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
         if (TextUtils.isEmpty(text) || mShowMaxLine == 0) {
             super.setText(text, type);
         } else if (isExpand) {
+            mOriginalText = text.toString();
             //文字展开
             SpannableStringBuilder spannable = new SpannableStringBuilder(mOriginalText);
             addTip(spannable, type);
         } else {
-            if (!flag) {
-                getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            mOriginalText = text;
+            if (getWidth() == 0){
+                post(new Runnable(){
                     @Override
-                    public boolean onPreDraw() {
-                        getViewTreeObserver().removeOnPreDrawListener(this);
-                        flag = true;
-                        formatText(text, type);
-                        return true;
+                    public void run() {
+                        formatText(type);
                     }
                 });
-            } else {
-                formatText(text, type);
+            }else{
+                formatText(type);
             }
         }
     }
@@ -186,24 +185,9 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
         super.setText(span, type);
     }
 
-    private void formatText(CharSequence text, final BufferType type) {
-        mOriginalText = text;
-        Layout layout = getLayout();
-        if (layout == null || !layout.getText().equals(mOriginalText)) {
-            super.setText(mOriginalText, type);
-            layout = getLayout();
-        }
-        if (layout == null) {
-            getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    translateText(getLayout(), type);
-                }
-            });
-        } else {
-            translateText(layout, type);
-        }
+    private void formatText(final BufferType type) {
+        super.setText(mOriginalText, type);
+        translateText(getLayout(), type);
     }
 
     private void translateText(Layout layout, BufferType type) {
@@ -282,6 +266,9 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
                 isExpandSpanClick = true;
                 Log.d("emmm", "onClick: span click");
                 setText(mOriginalText);
+                if (onTipClickListener != null) {
+                    onTipClickListener.onTipClick(isExpand);
+                }
             }
         }
 
@@ -306,5 +293,21 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
     private float getTextWidth(String text) {
         Paint paint = getPaint();
         return paint.measureText(text);
+    }
+
+
+    public SpannableFoldTextView setExpand(boolean expand) {
+        isExpand = expand;
+        return this;
+    }
+
+
+    public SpannableFoldTextView setOnTipClickListener(onTipClickListener onTipClickListener) {
+        this.onTipClickListener = onTipClickListener;
+        return this;
+    }
+
+    public interface onTipClickListener {
+        void onTipClick(boolean flag);
     }
 }
