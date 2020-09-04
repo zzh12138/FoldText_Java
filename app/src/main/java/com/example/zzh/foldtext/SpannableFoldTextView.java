@@ -206,11 +206,12 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
         }
     }
 
-    private void translateText(Layout layout, BufferType type) {
+      private void translateText(Layout layout, BufferType type) {
         if (layout.getLineCount() > mShowMaxLine) {
             SpannableStringBuilder span = new SpannableStringBuilder();
             int start = layout.getLineStart(mShowMaxLine - 1);
             int end = layout.getLineVisibleEnd(mShowMaxLine - 1);
+            int maxLineIndex = end;
             TextPaint paint = getPaint();
             StringBuilder builder = new StringBuilder(ELLIPSIZE_END);
             if (mTipGravity == END) {
@@ -218,6 +219,9 @@ public class SpannableFoldTextView extends AppCompatTextView implements View.OnC
                 end -= paint.breakText(mOriginalText, start, end, false, paint.measureText(builder.toString()), null) + 1;
                 float x = getWidth() - getPaddingLeft() - getPaddingRight() - getTextWidth(ELLIPSIZE_END.concat(mFoldText));
                 while (layout.getPrimaryHorizontal(end - 1) + getTextWidth(mOriginalText.subSequence(end - 1, end).toString()) < x) {
+                    if(end >= maxLineIndex){
+                        break;
+                    }
                     end++;
                 }
                 end -= 2;
